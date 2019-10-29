@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int lld;
+
+int modulo(int a,int b,int c)
+{
+    lld x=1,y=a;
+    while(b>0)
+    {
+        if(b%2)
+            x=(x*y)%c;
+        y=(y*y)%c;
+        b/=2;
+    }
+    return x%c;
+}
+
+lld mulmod(lld a,lld b,lld c)
+{
+    lld x=0,y=a%c;
+    while(b>0)
+    {
+        if(b%2)
+        x=(x+y)%c;
+        y=(y*2)%c;
+        b/=2;
+    }
+    return x%c;
+}
+
+bool Fermat(lld p,lld iterations)
+{
+    if(p==1)
+        return false;
+    for(int i=0;i<iterations;i++)
+    {
+        lld a=rand()%(p-1)+1;
+        if(modulo(a,p-1,p) != 1)
+            return false;
+    }
+    return true;
+}
+
+int main()
+{
+    lld n,i,t;
+    bool flag;
+    cout<<"Enter the number of test cases: ";
+    cin>>t;
+    while(t--)
+    {
+        cout<<"Enter the number: ";
+        cin>>n;
+        cout<<"Enter the number of iterations: ";
+        cin>>i;
+        flag=Fermat(n,i);
+        flag?cout<<n<<" is probably prime":cout<<n<<" is not prime";
+        cout<<endl;
+    }
+    return 0;
+}
